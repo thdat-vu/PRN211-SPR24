@@ -18,6 +18,9 @@ namespace StudentManager
         {
             Entities.V2.Student x = new Entities.V2.Student();
             Console.WriteLine("Yob: " + x.GetYob());
+
+            //int yob;
+            //Console.WriteLine(yob); //bị chửi
         }
         static void CreateObjectV4()
         {
