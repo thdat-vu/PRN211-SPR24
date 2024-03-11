@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZodiacGUI", "Zodiac\ZodiacGUI.csproj", "{58304512-4FDB-4315-8F13-FB32AC7952F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{098101C6-626C-422B-889F-BC015517A8CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestManager", "TestManager\TestManager.csproj", "{46E7F4EC-D9E2-4E60-8A83-BCA5FEE42774}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58304512-4FDB-4315-8F13-FB32AC7952F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58304512-4FDB-4315-8F13-FB32AC7952F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58304512-4FDB-4315-8F13-FB32AC7952F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58304512-4FDB-4315-8F13-FB32AC7952F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{098101C6-626C-422B-889F-BC015517A8CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{098101C6-626C-422B-889F-BC015517A8CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{098101C6-626C-422B-889F-BC015517A8CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{098101C6-626C-422B-889F-BC015517A8CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46E7F4EC-D9E2-4E60-8A83-BCA5FEE42774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46E7F4EC-D9E2-4E60-8A83-BCA5FEE42774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46E7F4EC-D9E2-4E60-8A83-BCA5FEE42774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46E7F4EC-D9E2-4E60-8A83-BCA5FEE42774}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68E7CC07-0605-40BC-AB38-3A205FE45CF3}
+	EndGlobalSection
+EndGlobal
