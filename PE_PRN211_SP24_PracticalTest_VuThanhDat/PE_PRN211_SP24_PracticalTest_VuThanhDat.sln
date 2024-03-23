@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{AC3EDF5B-F917-4E27-9512-D6D670799E8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestManager", "TestManager\TestManager.csproj", "{B673E27B-63D1-4217-94DD-376364D32EFE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{AC3EDF5B-F917-4E27-9512-D6D670799E8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC3EDF5B-F917-4E27-9512-D6D670799E8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC3EDF5B-F917-4E27-9512-D6D670799E8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B673E27B-63D1-4217-94DD-376364D32EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B673E27B-63D1-4217-94DD-376364D32EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B673E27B-63D1-4217-94DD-376364D32EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B673E27B-63D1-4217-94DD-376364D32EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

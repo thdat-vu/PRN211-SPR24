@@ -44,5 +44,15 @@ namespace Services
              _repo.UpdateBook(book); // Bên repo sẽ lo làm việc với dtb
             //service chỉ gọi thôi. Nhận book từ UI và pass sang repo
         }
+
+        public void CreateABook (Book book)
+        {
+            _repo.CreateBook(book);
+        }
+
+        public void DeleteABook(Book book)
+        {
+            _repo.DeleteBook(book);
+        }
     }
 }

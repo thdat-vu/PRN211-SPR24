@@ -59,20 +59,31 @@ namespace BookManagement_HoangNgocTrinh
             //NẾU CÓ SÁCH THÌ FILL VÀO CÁC Ô
             if (SelectedBook != null)
             {
+                //đổi lại cái title và disable ô nhập Id
+                lblHeader.Text = "Update selected book";
                 txtBookId.Text = SelectedBook.BookId.ToString();
+                //business Rule: bạn không thể edit BookId.
+                //có thể xóa, thêm, sửa các thuộc tính khác của 1 cuốn sách trừ BookId.
+                txtBookId.Enabled = false; //ko cho sửa bookId
                 txtBookName.Text = SelectedBook.BookName;
                 txtDescription.Text = SelectedBook.Description;
                 txtQuantity.Text = SelectedBook.Quantity.ToString();
                 txtPrice.Text = SelectedBook.Price.ToString();
-                dtpPublicationDate.Text =
-                    SelectedBook.PublicationDate.ToString();
+                //dtpPublicationDate.Text =
+                  //  SelectedBook.PublicationDate.ToString();
+                //hoặc là chúng ta không cần parse kiểu trả về string đâu.
+                //chúng ta có thể lấy trực tiếp kiểu trả về của dtpPublicationDate.Value (DateTime) của dạng datetimepicker pasre vào PublicationDate (cũng là DateTime)
+                //ps: Tạm biệt Simple Date Format của Java
+                dtpPublicationDate.Value = SelectedBook.PublicationDate;
                 txtAuthor.Text = SelectedBook.Author.ToString();
-                //...
                 cboBookCategoryId.SelectedValue = SelectedBook.BookCategoryId;  //1 2 3 4 5
                 //tuỳ sách có cate gì thì jump đến số đó!!!
 
             }
-
+            else
+            {
+                lblHeader.Text = "Create a new book...";
+            }
 
         }
 
@@ -83,24 +94,35 @@ namespace BookManagement_HoangNgocTrinh
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+
+            Book book = new Book()
+            {
+                //mọi thứ phải lấy từ ô text do ta chuẩn bị cập nhật cuốn sách mới
+                BookId = int.Parse(txtBookId.Text),
+                BookName = txtBookName.Text,
+                Description = txtDescription.Text,
+                PublicationDate = dtpPublicationDate.Value,
+                Quantity = int.Parse(txtQuantity.Text),
+                Price = double.Parse(txtPrice.Text),
+                Author = txtAuthor.Text,
+                BookCategoryId = int.Parse(cboBookCategoryId.SelectedValue.ToString())
+            };
             BookService bookService = new BookService();
+
+            //dù new hay update thì mình vẫn phải new 1 cuốn sách để gửi xuống db
             if( SelectedBook != null)
             {
                 //edit mode
-                Book b = new Book()
-                {
-                    BookId = SelectedBook.BookId,
-                    BookName = txtBookName.Text,
-                    Description = txtDescription.Text,
-                    PublicationDate = dtpPublicationDate.Value,
-                    Quantity = int.Parse(txtQuantity.Text),
-                    Price = double.Parse(txtPrice.Text),
-                    Author = txtAuthor.Text,
-                    BookCategoryId = int.Parse(cboBookCategoryId.SelectedValue.ToString()) 
-                };
+                
                 //use the temp book to update the book
-                bookService.UpdateABook(b);
+                bookService.UpdateABook(book);
                 //Close the form detail
+                Close();
+            }
+            else
+            {
+                //add mode
+                bookService.CreateABook(book);
                 Close();
             }
         }

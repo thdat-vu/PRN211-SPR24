@@ -1,4 +1,5 @@
-﻿using Repositories.Entities;
+﻿using Microsoft.IdentityModel.Tokens;
+using Repositories.Entities;
 using Services;
 using static System.ComponentModel.Design.ObjectSelectorEditor;
 
@@ -19,12 +20,7 @@ namespace BookManagement_HoangNgocTrinh
 
         public void BookManagerMainUI_Load(object sender, EventArgs e)
         {
-            //gọi Services để cung cấp data vào grid/table
-            BookService service = new BookService();
-
-            dgvBookList.DataSource = null; //xoá trắng grid
-            dgvBookList.DataSource = service.GetAllBooks();
-            //                               hàm I trả về all books
+            FillDataGridView();
         }
 
         private void grbSearchCriteria_Enter(object sender, EventArgs e)
@@ -42,7 +38,21 @@ namespace BookManagement_HoangNgocTrinh
             f.ShowDialog(); //render đi em 
             //f.Show(); //nguy hiểm nhen, vì cứ new là có object, cửa sổ mới!!!
 
+            //add xong nhớ f5 lại lưới
+            FillDataGridView();
         }
+
+        //hàm refresh dgvBookList khi thêm xóa, sửa và mở màn hình
+        private void FillDataGridView()
+        {
+            //gọi Services để cung cấp data vào grid/table
+            BookService service = new BookService();
+
+            dgvBookList.DataSource = null; //xoá trắng grid
+            dgvBookList.DataSource = service.GetAllBooks();
+            //                               hàm I trả về all books
+        }
+
 
         private void dgvBookList_SelectionChanged(object sender, EventArgs e)
         {
@@ -71,8 +81,7 @@ namespace BookManagement_HoangNgocTrinh
                 f.SelectedBook = _selected;
                 f.ShowDialog();
                 //reload lại dgv
-                dgvBookList.DataSource = null; //xoá trắng grid
-                dgvBookList.DataSource = service.GetAllBooks();
+                FillDataGridView();
             }
             else
                 MessageBox.Show("Please select a certain book to edit!", "Select one book", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -97,14 +106,54 @@ namespace BookManagement_HoangNgocTrinh
             //    }
             //).ToList();
 
-            dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower()) || x.Description.ToLower().Contains(txtDescription.Text.ToLower())).ToList();
+
+            //dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower()) || x.Description.ToLower().Contains(txtDescription.Text.ToLower())).ToList();
+            //Code cũ: Thật ra không có vấn đề gì hết. Nhưng nếu giả sử rằng: 
+            //một người dùng chỉ nhập 1 field txtBookName và bỏ trống txtDescription thì sao?
+            //thì list search trả về thật ra lại là cả list 17 cuốn sách
+            //vì điều kiện txtBookName có từ search HỢP với điều kiện txtDescription không có từ search => cả 17 cuốn sách đều hợp lệ
 
 
+
+
+            //vậy giải pháp ở đây là ta nên chặn điều kiện 2 field này liệu có 1 field nào bị trống hay không
+            if (string.IsNullOrWhiteSpace(txtBookName.Text)) //nếu txtbookName bị trống => Điều kiện where trên txtDescription
+            {
+                dgvBookList.DataSource = books.Where(x => x.Description.ToLower().Contains(txtDescription.Text.ToLower())).ToList();
+            }
+            else if (string.IsNullOrWhiteSpace(txtDescription.Text)) // nếu txtDescription bị trống -> điều kiện where trên BookName
+            {
+                dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower())).ToList();
+            }
+            else //nếu cả 2 field đều đã được điền.
+            {
+                dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower()) || x.Description.ToLower().Contains(txtDescription.Text.ToLower())).ToList();
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            LoginForm loginForm = new LoginForm();  
+            this.Close();
+            loginForm.ShowDialog();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+            if (dgvBookList.SelectedRows.Count > 0)
+            {
+                //nếu chọn ít nhất 1 dòng, thì cứ dòng đầu tiên đc chọn là bốc nó ra, đẩy sang màn hình detail
+                //hỏi 1 câu có chắc xóa hay ko
+                DialogResult answer = MessageBox.Show("Do you really want to delete this book?", "Delete Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (answer == DialogResult.No) { return; }
+                _selected = (Book)dgvBookList.SelectedRows[0].DataBoundItem;  //lấy 1 dòng chính là kiểu object tổng quát, nhưng bản chất là Book do lúc đầu .DataSource = List<Book> của hàm GetAllBooks()
+                BookService bookService = new BookService();
+                bookService.DeleteABook(_selected);
+                FillDataGridView();
+                _selected = null;
+            }
+            
         }
     }
 }

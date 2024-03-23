@@ -12,7 +12,7 @@ namespace BookManagement_VuThanhDat
 			// see https://aka.ms/applicationconfiguration.
 			ApplicationConfiguration.Initialize();
 			//Application.Run(new BookManager());
-			Application.Run(new BookManager());
+			Application.Run(new LoginForm());
 		}
 	}
 }

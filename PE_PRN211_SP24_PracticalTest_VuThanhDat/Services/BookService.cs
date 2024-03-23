@@ -1,4 +1,5 @@
-﻿using Repository.Entities;
+﻿using Repository;
+using Repository.Entities;
 
 namespace Services
 {
@@ -23,56 +24,30 @@ namespace Services
         //	books.Add(new Book() {BookId = 3, BookName = "Có con mèo ngồi trên cửa sổ", Author = "Nguyễn Nhật ÁNh" });
         //	return books;
         //}
-
+        BookRepository _repo;
         public List<Book> GetAllBooks()
         {
             //TODO: Gọi class BookRepository để lấy toàn bộ sách từ DB
             //Call class BookRepository to retrieve all books from DB
-            List<Book> arr = new List<Book>();
+            
+            _repo = new ();
+            return _repo.GetBooks();
+        }
 
-            //using object initialization
-            arr.Add(new Book()
-            {
-                BookId = 1,
-                BookName = "Đời Ngắn Đừng Ngủ Dài-Short Life Don’t Sleep Long",
-                Author = "Robin Sharma",
-                Description= "Đời Ngắn Đừng Ngủ Dài-Short Life Don’t Sleep Long",
-                //PublicationDate = "2023-01-01",
-                BookCategoryId = 5
-            });
-
-            arr.Add(new Book()
-            {
-                BookId = 2,
-                BookName = "Mình Là Nắng, Việc Của Mình Là Chói Chang-I Am the Sun, My Job Is to Shine Bright",
-                Author = "Kazuko Watanabe",
-                Description="Hãy phát huy các tố chất vốn có của bạn, ở trong bạn..",
-                //PublicationDate = "2023-01-01",
-                BookCategoryId = 5
-            });
-
-            arr.Add(new Book()
-            {
-                BookId = 3,
-                BookName = "Tuổi Trẻ Đáng Giá Bao Nhiêu-How Much Is Youth Worth",
-                Author = "Rosie Nguyễn",
-                Description="",
-                //PublicationDate = "2018-1-1",
-                BookCategoryId = 5
-            });
-
-            arr.Add(new Book()
-            {
-                BookId = 4,
-                BookName = "Snow Crash",
-                Description = "Hiro lives in a Los Angeles where franchises line the freeway...",
-                Author = "Neal Stephenson",
-               
-                //PublicationDate = "2001-1-1",
-                BookCategoryId = 2
-            });
-
-            return arr;
+        public void CreateBook(Book book)
+        {
+            _repo = new();
+            _repo.CreateABook(book);
+        }
+        public void DeleteBook(Book book)
+        {
+            _repo = new();
+            _repo.DeleteABook(book);
+        }
+        public void UpdateBook(Book book)
+        {
+            _repo = new();
+            _repo.UpdateABook(book);
         }
     }
 }

@@ -16,7 +16,8 @@ namespace Repositories
     /// </summary>
     public class BookRepository
     {
-        private HoangNgocTrinhContext _context;
+        private HoangNgocTrinhContext _context; //Mỗi khi dùng DbContext, nhớ phải new()
+
         /// <summary>
         /// Hàm trả về các cuốn sách trong dtb
         /// </summary>
@@ -27,11 +28,26 @@ namespace Repositories
             return _context.Books.ToList(); // ta luôn nên convert mọi thứ về List cho dễ xử lí
         }
 
-        public void UpdateBook(Book b)
+        public void UpdateBook(Book book)
         {
             _context = new();
-            _context.Books.Update(b); //SQL: update Book set BookId=, BookName = ..., where BookId = ...
+            _context.Books.Update(book); //SQL: update Book set BookId=, BookName = ..., where BookId = ...
             _context.SaveChanges(); //keep track on change.
+        }
+
+        public void CreateBook(Book book)
+        {
+            _context = new();//nhớ new DbContext
+            _context.Add(book); //SQL: insert into Book values()
+            _context.SaveChanges();
+            //TODO:
+            //check duplicate Primary kêy!!!
+        }
+        public void DeleteBook(Book book)
+        {
+            _context = new();//nhớ new DbContext
+            _context.Remove(book); //SQL: Delete from Book Where (Book.bookId == book.bookId)
+            _context.SaveChanges();
         }
     }
 }

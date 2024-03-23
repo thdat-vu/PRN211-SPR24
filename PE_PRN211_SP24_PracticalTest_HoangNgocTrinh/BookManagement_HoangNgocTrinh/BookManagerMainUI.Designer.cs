@@ -49,7 +49,7 @@
             // lblHeader
             // 
             lblHeader.AutoSize = true;
-            lblHeader.Font = new Font("Segoe UI", 36F, FontStyle.Bold, GraphicsUnit.Point);
+            lblHeader.Font = new Font("Segoe UI", 36F, FontStyle.Bold);
             lblHeader.ForeColor = Color.Yellow;
             lblHeader.Location = new Point(7, 6);
             lblHeader.Name = "lblHeader";
@@ -64,7 +64,7 @@
             grbSearchCriteria.Controls.Add(txtBookName);
             grbSearchCriteria.Controls.Add(lblBookDescription);
             grbSearchCriteria.Controls.Add(lblBookName);
-            grbSearchCriteria.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            grbSearchCriteria.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             grbSearchCriteria.ForeColor = Color.Yellow;
             grbSearchCriteria.Location = new Point(23, 101);
             grbSearchCriteria.Name = "grbSearchCriteria";
@@ -102,7 +102,7 @@
             // lblBookDescription
             // 
             lblBookDescription.AutoSize = true;
-            lblBookDescription.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblBookDescription.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             lblBookDescription.ForeColor = Color.Yellow;
             lblBookDescription.Location = new Point(413, 60);
             lblBookDescription.Name = "lblBookDescription";
@@ -113,7 +113,7 @@
             // lblBookName
             // 
             lblBookName.AutoSize = true;
-            lblBookName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblBookName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             lblBookName.ForeColor = Color.Yellow;
             lblBookName.Location = new Point(26, 60);
             lblBookName.Name = "lblBookName";
@@ -124,7 +124,7 @@
             // lblCopyright
             // 
             lblCopyright.AutoSize = true;
-            lblCopyright.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblCopyright.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold);
             lblCopyright.ForeColor = Color.Yellow;
             lblCopyright.Location = new Point(27, 622);
             lblCopyright.Name = "lblCopyright";
@@ -135,7 +135,7 @@
             // btnCreate
             // 
             btnCreate.FlatStyle = FlatStyle.Flat;
-            btnCreate.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnCreate.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnCreate.ForeColor = Color.Yellow;
             btnCreate.Location = new Point(899, 299);
             btnCreate.Name = "btnCreate";
@@ -148,7 +148,7 @@
             // btnUpdate
             // 
             btnUpdate.FlatStyle = FlatStyle.Flat;
-            btnUpdate.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnUpdate.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnUpdate.ForeColor = Color.Yellow;
             btnUpdate.Location = new Point(899, 380);
             btnUpdate.Name = "btnUpdate";
@@ -161,7 +161,7 @@
             // btnDelete
             // 
             btnDelete.FlatStyle = FlatStyle.Flat;
-            btnDelete.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnDelete.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnDelete.ForeColor = Color.Yellow;
             btnDelete.Location = new Point(899, 463);
             btnDelete.Name = "btnDelete";
@@ -169,11 +169,12 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Delete a book";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnExit
             // 
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            btnExit.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
             btnExit.ForeColor = Color.Yellow;
             btnExit.Location = new Point(899, 552);
             btnExit.Name = "btnExit";
@@ -189,7 +190,6 @@
             dgvBookList.Location = new Point(27, 309);
             dgvBookList.Name = "dgvBookList";
             dgvBookList.RowHeadersWidth = 51;
-            dgvBookList.RowTemplate.Height = 29;
             dgvBookList.Size = new Size(846, 294);
             dgvBookList.TabIndex = 1;
             dgvBookList.SelectionChanged += dgvBookList_SelectionChanged;
@@ -197,7 +197,7 @@
             // lblBookList
             // 
             lblBookList.AutoSize = true;
-            lblBookList.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point);
+            lblBookList.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic);
             lblBookList.ForeColor = Color.Yellow;
             lblBookList.Location = new Point(23, 267);
             lblBookList.Name = "lblBookList";

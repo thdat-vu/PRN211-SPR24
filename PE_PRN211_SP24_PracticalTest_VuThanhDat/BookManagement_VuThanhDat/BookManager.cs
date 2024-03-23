@@ -33,6 +33,7 @@ namespace BookManagement_VuThanhDat
             BookDetailForm form = new BookDetailForm();
             //bước 2: bảo form này show .Dialog() <Hiện và không thể nhấn vào form Main UI đc nữa cho đến khi form Detail mất> hoặc .Show() <hiện như pop up và có thể chạm vào form MainUI>
             form.ShowDialog();
+            RefreshDataGridView();
         }
 
         private void dgvBookList_SelectionChanged(object sender, EventArgs e)
@@ -44,19 +45,24 @@ namespace BookManagement_VuThanhDat
             {
                 //Hỏi xem có chọn dòng hay ko hay chỉ chọn header
                 //MessageBox.Show("Anh đã chọn dòng");
-                var selectedBook = (Book)dgvBookList.SelectedRows[0].DataBoundItem;
+                _selected = (Book)dgvBookList.SelectedRows[0].DataBoundItem;
                 //Có thể user sẽ chọn nhiều dòng cùng lúc. ta lấy ra dòng đầu tiên [0]. Và dòng này ứng với data ngầm phía sau là book nào
-                if (selectedBook != null)
-                {
-                    // MessageBox.Show(selectedBook.ToString());
-                    //đẩy selectedBook sang form bên kia
-                    BookDetailForm frm = new BookDetailForm();
-                    frm.EditedBook = selectedBook;
-                    frm.ShowDialog();
-                }
+                //if (selectedBook != null)
+                //{
+                //    // MessageBox.Show(selectedBook.ToString());
+                //    //đẩy selectedBook sang form bên kia
+                //    BookDetailForm frm = new BookDetailForm();
+                //    frm.EditedBook = selectedBook;
+                //    frm.ShowDialog();
+                //}
             }
         }
-
+        public void RefreshDataGridView()
+        {
+            BookService service = new BookService();
+            dgvBookList.DataSource = null;
+            dgvBookList.DataSource = service.GetAllBooks().ToList();
+        }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             //đẩy sang FormDetail 
@@ -70,6 +76,7 @@ namespace BookManagement_VuThanhDat
                 //đưa sách sang
                 frm.EditedBook = _selected;
                 frm.ShowDialog();
+                RefreshDataGridView();
             }
             else
             {
@@ -86,13 +93,42 @@ namespace BookManagement_VuThanhDat
             //rồi mới insert kq query lấy sách bỏ vào dgv
             // dgvBookList.DataSource = books.Where(x => true).ToList();
             //nhớ là datagrid view nó chỉ đọc đc kiểu list thôi ha chứ nó ko đọc đc IEnumberable
-            dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower()) || x.Description.ToLower().Contains(txtBookDescription.Text.ToLower())).ToList();
+            if(!string.IsNullOrWhiteSpace(txtBookName.Text) && (string.IsNullOrWhiteSpace(txtBookDescription.Text)))
+            {
+                dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower())).ToList();
+            }
+            if(string.IsNullOrWhiteSpace(txtBookName.Text) && (!string.IsNullOrWhiteSpace(txtBookDescription.Text)))
+            {
+                dgvBookList.DataSource = books.Where(x => x.Description.ToLower().Contains(txtBookDescription.Text.ToLower())).ToList();
+            }
+            if(!string.IsNullOrWhiteSpace(txtBookName.Text) && (!string.IsNullOrWhiteSpace(txtBookDescription.Text)))
+            {
+                dgvBookList.DataSource = books.Where(x => x.BookName.ToLower().Contains(txtBookName.Text.ToLower()) || x.Description.ToLower().Contains(txtBookDescription.Text.ToLower())).ToList();
+            }
+            
 
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            
+            //Application.Exit(); đừng có thoát app luôn
+            //trả về trang login đi
+
+            LoginForm form = new();
+            this.Close();
+            form.ShowDialog();
+            
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if(_selected!= null)
+            {
+                BookService service = new BookService();
+                service.DeleteBook(_selected);
+                RefreshDataGridView();
+            }
         }
     }
 }

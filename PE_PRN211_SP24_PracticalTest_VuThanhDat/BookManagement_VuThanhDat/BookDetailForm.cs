@@ -16,6 +16,7 @@ namespace BookManagement_VuThanhDat
     {
         //Prop này dâm lắm này. Dùng để truyền 1 book đã có trong dtb nếu nhấn Update 1 cuốn sách
         public Book EditedBook { get; set; } = null;
+
         public BookDetailForm()
         {
             InitializeComponent();
@@ -54,7 +55,7 @@ namespace BookManagement_VuThanhDat
             cboBookCategoryId.ValueMember = "BookCategoryId";
 
             //jump đến cái value mình thích - chọn đúng type cho cuốn sách
-            cboBookCategoryId.SelectedValue = 5;
+            cboBookCategoryId.SelectedValue = 1;
             //self help type
             //cuốn sách đang edit.BookCategoryId;
 
@@ -70,6 +71,9 @@ namespace BookManagement_VuThanhDat
                 txtBookId.Text = EditedBook.BookId.ToString();
                 txtBookName.Text = EditedBook.BookName.ToString();
                 txtDescription.Text = EditedBook.Description;
+                txtPrice.Text = EditedBook.Price.ToString();
+                txtQuantity.Text = EditedBook.Quantity.ToString();
+                txtAuthor.Text = EditedBook.Author.ToString();
                 cboBookCategoryId.SelectedValue = EditedBook.BookCategoryId;
 
             }
@@ -81,6 +85,36 @@ namespace BookManagement_VuThanhDat
             //đóng form nhỏ của 1 app bự th
 
             this.Close();
+        }
+        
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            //đằng nào Add hay create chả phải là đi clone ra 1 object Book xong đổ field vào à?
+            Book book = new Book()
+            {
+                BookId = int.Parse(txtBookId.Text.ToString()),
+                BookName = txtBookName.Text.ToString(),
+                Description = txtDescription.Text.ToString(),
+                Price = double.Parse(txtPrice.Text.ToString()),
+                Quantity = int.Parse(txtQuantity.Text.ToString()),
+                Author = txtAuthor.Text.ToString(),
+                PublicationDate = dtpPublicationDate.Value,
+                BookCategoryId = int.Parse(cboBookCategoryId.SelectedValue.ToString())
+            };
+
+            if(EditedBook != null)
+            {
+                BookService service = new BookService();
+                service.UpdateBook(book);
+                this.Close(); 
+            }
+            else
+            {
+                BookService service = new BookService();
+                service.CreateBook(book);
+                this.Close();
+            }
+
         }
     }
 }
